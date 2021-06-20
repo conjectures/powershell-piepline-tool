@@ -73,7 +73,8 @@ Function Get-HashValue {
   )
   Begin { 
     $HashingAlgorithm = [System.Security.Cryptography.HashAlgorithm]::Create($Algorithm)
-    $result = @()
+    $result = New-Object System.Collections.ArrayList
+    
   }
   Process {
       # Generate salt
@@ -84,10 +85,16 @@ Function Get-HashValue {
       $hash = $HashingAlgorithm.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($Data + $salt))
       $hashString = [System.BitConverter]::ToString($hash).Replace('-','')
 
-      $result += @{
-        HashValue=$hashString
-        Salt=$salt
-      }
+
+      $result.Add([PSCustomObject]@{
+          HashValue = $hashString
+          Salt = $salt
+        }) 2>&1 >> $null
+
+      #$result += @{
+      #  HashValue=$hashString
+      #  Salt=$salt
+      #}
   }
   End {
     $result
