@@ -81,9 +81,10 @@ Function Get-HashValue {
       $salt = Get-RandomAlphanumericString -Length 10
       Write-Verbose "salt: $salt"
       # Hash string
-      Write-Verbose "string $Data"
+      Write-Verbose "data: $Data"
       $hash = $HashingAlgorithm.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($Data + $salt))
       $hashString = [System.BitConverter]::ToString($hash).Replace('-','')
+      Write-Verbose "hash: $hashString"
 
 
       $result.Add([PSCustomObject]@{

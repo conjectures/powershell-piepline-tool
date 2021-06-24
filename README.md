@@ -21,6 +21,7 @@ Functions:
 
 ## ToDo
 - Add Parallelism
+- Change file to module
 - Read/Write to database
 - Add more masking methods
 
